@@ -1,23 +1,24 @@
 // ChatApp.js (main component)
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import ChatList from "../ChatList/ChatList";
 
 const ChatApp = () => {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessage, setNewMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newMessage.trim() !== '') {
-      setMessages([...messages, { text: newMessage, user: 'You' }]);
-      setNewMessage('');
+    if (newMessage.trim() !== "") {
+      setMessages([...messages, { text: newMessage, user: "You" }]);
+      setNewMessage("");
     }
   };
 
   useEffect(() => {
     // Simulate receiving messages from another user
     const receiveMessage = setTimeout(() => {
-      setMessages([...messages, { text: 'Hello!', user: 'Friend' }]);
+      setMessages([...messages, { text: "Hello!", user: "Friend" }]);
     }, 2000);
 
     return () => {
@@ -27,9 +28,13 @@ const ChatApp = () => {
 
   return (
     <div className="chat-app">
+      <ChatList />
       <div className="message-container">
         {messages.map((message, index) => (
-          <div key={index} className={`message ${message.user === 'You' ? 'user' : 'friend'}`}>
+          <div
+            key={index}
+            className={`message ${message.user === "You" ? "user" : "friend"}`}
+          >
             {message.text}
           </div>
         ))}
