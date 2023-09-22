@@ -1,4 +1,5 @@
 import React from "react";
+import "./ChatList.css";
 
 const ChatList = () => {
   // Mock data for the chat list
