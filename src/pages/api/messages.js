@@ -1,4 +1,4 @@
-import { getMessages, addMessage } from "../../server/storage";
+import { getMessages, addMessage } from "../../server/mongo";
 
 const route = async (req, res) => {
   const {
@@ -6,17 +6,23 @@ const route = async (req, res) => {
   } = req;
 
   switch (method) {
-    case "GET":
-      res.status(200).json(await getMessages());
+    case 'GET':
+      const messages = await getMessages();
+      res.status(200).json(messages);
       break;
-    case "POST":
-      console.log(req.body);
-      await addMessage(req.body);
-      res.status(200).json()
+    case 'POST':
+      const message = req.body;
+      if (!message || !message.from || !message.message) {
+        res.status(400).json({
+          error: 'Bad Request'
+        });
+        return;
+      }
+      await addMessage(message);
+      res.status(200).json({ ok: true });
       break;
-
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
+      res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
