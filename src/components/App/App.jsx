@@ -1,12 +1,13 @@
-import { useState, useEffect, useRef, use } from "react";
+import { useState, useEffect, useRef } from "react";
 import Head from 'next/head';
 import ChatsList from "../ChatsList";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 import styles from "./App.module.css";
 
 const ChatApp = () => {
   const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useLocalStorage('user', '');
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef(null);
 
