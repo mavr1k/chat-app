@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ChatsList from "../ChatsList";
 
-import "./App.css";
+import styles from "./App.module.css";
 
 const ChatApp = () => {
   const [messages, setMessages] = useState([]);
@@ -21,21 +21,15 @@ const ChatApp = () => {
   };
 
   useEffect(() => {
-    // Simulate receiving messages from another user
-    const receiveMessage = setTimeout(() => {
+    // Simulate receiving message from another user
       setMessages([...messages, { text: "Hello!", user: "Friend" }]);
-    }, 2000);
-
-    return () => {
-      clearTimeout(receiveMessage);
-    };
-  }, [messages]);
+  }, []);
 
   return (
-    <div className="vh-100 d-flex flex-column justify-content-between">
+    <div className="vh-100 d-flex flex-column justify-content-between overflow-hidden">
       <div className="d-flex">
         <ChatsList />
-        <div className="d-flex flex-column flex-grow-1 p-2 messages">
+        <div className={`d-flex flex-column flex-grow-1 p-2 ${styles.messages}`}>
           {messages.map((message, index) => (
             <div
               key={index}
