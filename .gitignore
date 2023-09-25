@@ -13,6 +13,7 @@
 .next
 
 # misc
+db.json
 .DS_Store
 .env.local
 .env.development.local

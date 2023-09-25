@@ -1,13 +1,32 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import Head from 'next/head';
 import ChatsList from "../ChatsList";
 
 import styles from "./App.module.css";
 
 const ChatApp = () => {
-  const [messages, setMessages] = useState([{ text: "Hello!", user: "Friend" }]);
+  const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState('');
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef(null);
+
+  const getMessages = async () => {
+    const response = await fetch("/api/messages");
+    const newMessages = await response.json();
+    setMessages(newMessages.map((message) => ({ user: message.from, text: message.message })));
+  }
+
+  useEffect(() => {
+    getMessages();
+    const interval = setInterval(getMessages, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!user) {
+      setUser(prompt("What is your name?"));
+    }
+  }, [user]);
 
   useEffect(() => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -16,8 +35,13 @@ const ChatApp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
-      setMessages([...messages, { text: newMessage, user: "You" }]);
-      setNewMessage("");
+      fetch("/api/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ from: user, message: newMessage }),
+      });
     }
   };
 
@@ -33,7 +57,7 @@ const ChatApp = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`m-1 p-2 rounded mw-75 ${message.user === "You" ? "bg-primary text-light align-self-end" : "bg-light text-dark align-self-start"}`}
+                className={`m-1 p-2 rounded mw-75 ${message.user === user ? "bg-primary text-light align-self-end" : "bg-light text-dark align-self-start"}`}
               >
                 {message.text}
               </div>
