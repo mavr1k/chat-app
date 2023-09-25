@@ -9,7 +9,7 @@ To set up the application:
 1. Clone the repository: `git clone https://github.com/mavr1k/chat-app.git`
 2. Navigate to the project directory: `cd chat-app`
 3. Install dependencies: `npm install`
-4. Start the application: `npm start`
+4. Start the application: `npm run dev`
 
 The application will start running at [http://localhost:3000](http://localhost:3000).
 
