@@ -1,10 +1,11 @@
 const fs = require('node:fs/promises');
+const jsonDirectory = path.join(process.cwd(), 'json');
 
-const dbPath = process.env.NODE_ENV !== 'production' ? './db.json' : '/tmp/db.json';
+const dbPath = process.env.NODE_ENV !== 'production' ? './db.json' : path.join(process.cwd(), 'db.json');
 
 const getMessages = async () => {
   try {
-    const db = await fs.readFile('./db.json', 'utf8');
+    const db = await fs.readFile(dbPath, 'utf8');
     return JSON.parse(db);
   } catch (err) {
     if (err.code === 'ENOENT') {
@@ -21,7 +22,7 @@ const getMessages = async () => {
 const addMessage = async (message) => {
   const messages = await getMessages();
   messages.push(message);
-  await fs.writeFile('./db.json', JSON.stringify(messages));
+  await fs.writeFile(dbPath, JSON.stringify(messages));
 }
 
 export {
