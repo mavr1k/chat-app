@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Chat-App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a web application built with React and Next.js. The main features include user-friendly interface and efficient data fetching.
 
-## Available Scripts
+## MongoDB Setup
 
-In the project directory, you can run:
+To set up MongoDB locally using Docker:
 
-### `npm start`
+1. Install Docker: Follow the instructions at https://docs.docker.com/get-docker/
+2. Pull the MongoDB Docker image: `docker pull mongo`
+3. Run the MongoDB Docker container: `docker run -d -p 27017-27019:27017-27019 --name mongodb mongo`
+4. Start the application: `npm run dev`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application will start running at [http://localhost:3000](http://localhost:3000).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Application Usage
 
-### `npm test`
+To use the application:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Open the application in your browser.
+2. Enter your name and the room you want to join.
+3. Click the "Join" button.
+4. To send a message, type your message in the input field and press "Enter".
 
-### `npm run build`
+## Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To set up the application:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository: `git clone https://github.com/mavr1k/chat-app.git`
+2. Navigate to the project directory: `cd chat-app`
+3. Install dependencies: `npm install`
+4. Set the `MONGODB_URI` environment variable. This should be the connection string to your MongoDB database.
+5. Start the application: `npm run dev`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To set up MongoDB locally using Docker:
 
-### `npm run eject`
+1. Install Docker: Follow the instructions at https://docs.docker.com/get-docker/
+2. Pull the MongoDB Docker image: `docker pull mongo`
+3. Run the MongoDB Docker container: `docker run -d -p 27017-27019:27017-27019 --name mongodb mongo`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Alternatively, you can use a Docker Compose file to set up MongoDB. Here is a sample Docker Compose file:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```yaml
+version: "3"
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - 27017-27019:27017-27019
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To run the Docker Compose file, use the command: `docker-compose up`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Remember to set the `MONGODB_URI` environment variable to `mongodb://localhost:27017` to connect to the local MongoDB instance.
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To use the application:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Open the application in your browser.
+2. Enter your name and the room you want to join.
+3. Click the "Join" button.
+4. To send a message, type your message in the input field and press "Enter".
 
-### Code Splitting
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+We welcome contributions from the community. To contribute:
 
-### Analyzing the Bundle Size
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes in your branch.
+4. Submit a pull request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Before making a pull request, please make sure your changes don't break the existing code. If you find any issues or have suggestions, please open an issue in the repository.
