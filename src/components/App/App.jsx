@@ -32,16 +32,17 @@ const ChatApp = () => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
-      fetch("/api/messages", {
+      await fetch("/api/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ from: user, message: newMessage }),
       });
+      setNewMessage("");
     }
   };
 

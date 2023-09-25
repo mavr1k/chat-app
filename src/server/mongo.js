@@ -1,36 +1,32 @@
 const { MongoClient } = require('mongodb');
 const dbName = 'chat-app';
 
-async function connect() {
-  try {
-    const client = await MongoClient.connect(process.env.MONGODB_URI);
-    console.log('Connected to MongoDB');
+let client;
+
+async function getClient() {
+  if (client) {
+    console.log('Using existing connection');
     return client;
-  } catch (err) {
-    console.error(err);
   }
+  client = await MongoClient.connect(process.env.MONGODB_URI);
+  console.log('Connected to MongoDB');
+  return client;
 }
 
 async function close(client) {
-  try {
-    await client.close();
-    console.log('Disconnected from MongoDB');
-  } catch (err) {
-    console.error(err);
-  }
+  await client.close();
+  console.log('Disconnected from MongoDB');
 }
 
 const processMongoTask = async (cb) => {
   let client;
   try {
-    client = await connect();
+    client = await getClient();
     const db = client.db(dbName);
     const result = await cb(client, db);
     return result;
   } catch (err) {
     throw err;
-  } finally {
-    await close(client);
   }
 }
 
