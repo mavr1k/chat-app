@@ -1,3 +1,4 @@
+import path from 'node:path';
 const fs = require('node:fs/promises');
 const jsonDirectory = path.join(process.cwd(), 'json');
 
