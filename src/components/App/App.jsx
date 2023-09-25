@@ -13,7 +13,9 @@ const ChatApp = () => {
   const getMessages = async () => {
     const response = await fetch("/api/messages");
     const newMessages = await response.json();
-    setMessages(newMessages.map((message) => ({ user: message.from, text: message.message })));
+    if (newMessages.length !== messages.length) {
+      setMessages(newMessages.map((message) => ({ user: message.from, text: message.message })));
+    }
   }
 
   useEffect(() => {
