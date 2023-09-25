@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, use } from "react";
 import Head from 'next/head';
-import ChatsList from "../ChatsList";
 
 import styles from "./App.module.css";
 
@@ -53,7 +52,6 @@ const ChatApp = () => {
       </Head>
       <div className="vh-100 d-flex flex-column justify-content-between overflow-hidden">
         <div className="d-flex">
-          <ChatsList />
           <div className={`d-flex flex-column flex-grow-1 p-2 ${styles.messages}`}>
             {messages.map((message, index) => (
               <div
