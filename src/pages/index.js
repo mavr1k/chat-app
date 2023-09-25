@@ -1,3 +1,5 @@
 import ChatApp from "../components/App";
 
-export default () => <ChatApp />;
+const HomePage = () => <ChatApp />;
+
+export default HomePage;

@@ -4,7 +4,7 @@ import ChatsList from "../ChatsList";
 import styles from "./App.module.css";
 
 const ChatApp = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{ text: "Hello!", user: "Friend" }]);
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef(null);
 
@@ -19,11 +19,6 @@ const ChatApp = () => {
       setNewMessage("");
     }
   };
-
-  useEffect(() => {
-    // Simulate receiving message from another user
-      setMessages([...messages, { text: "Hello!", user: "Friend" }]);
-  }, []);
 
   return (
     <div className="vh-100 d-flex flex-column justify-content-between overflow-hidden">
@@ -49,9 +44,9 @@ const ChatApp = () => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <button 
-        className="btn btn-primary rounded p-2"
-        type="submit">Send</button>
+        <button
+          className="btn btn-primary rounded p-2"
+          type="submit">Send</button>
       </form>
     </div>
   );
