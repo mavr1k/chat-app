@@ -5,17 +5,16 @@ let client;
 
 async function getClient() {
   if (client) {
-    console.log('Using existing connection');
     return client;
   }
   client = await MongoClient.connect(process.env.MONGODB_URI);
-  console.log('Connected to MongoDB');
+  console.info('Connected to MongoDB');
   return client;
 }
 
 async function close(client) {
   await client.close();
-  console.log('Disconnected from MongoDB');
+  console.info('Disconnected from MongoDB');
 }
 
 const processMongoTask = async (cb) => {
