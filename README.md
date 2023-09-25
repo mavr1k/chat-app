@@ -1,6 +1,6 @@
 # Chat-App
 
-This is a real-time chat application built with React and Socket.IO. It allows users to create rooms and exchange messages in real-time. The main features include real-time messaging, room creation, and user-friendly interface.
+This is a web application built with React and Next.js. The main features include user-friendly interface and efficient data fetching.
 
 ## MongoDB Setup
 
