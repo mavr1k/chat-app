@@ -1,7 +1,9 @@
 const { MongoClient } = require('mongodb');
+const WebSocket = require('ws');
 const dbName = 'chat-app';
 
 let client;
+let ws;
 
 async function getClient() {
   if (client) {
@@ -11,6 +13,8 @@ async function getClient() {
   console.info('Connected to MongoDB');
   return client;
 }
+
+ws = new WebSocket('ws://localhost:8080');
 
 async function close(client) {
   await client.close();
@@ -33,7 +37,10 @@ const getMessages = async () =>
   processMongoTask((client, db) => db.collection('messages').find({}, { projection: { _id: 0 } }).toArray());
 
 const addMessage = async (message) =>
-  processMongoTask((client, db) => db.collection('messages').insertOne(message));
+  processMongoTask(async (client, db) => {
+    await db.collection('messages').insertOne(message);
+    ws.send(JSON.stringify(message));
+  });
 
 const deleteMessages = async () =>
   processMongoTask((client, db) => db.collection('messages').deleteMany({}));
