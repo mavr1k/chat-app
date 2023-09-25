@@ -1,4 +1,4 @@
-import { getMessages, addMessage } from "../../server/mongo";
+import { getMessages, addMessage, deleteMessages } from "../../server/mongo";
 
 const route = async (req, res) => {
   const {
@@ -19,6 +19,10 @@ const route = async (req, res) => {
         return;
       }
       await addMessage(message);
+      res.status(200).json({ ok: true });
+      break;
+    case 'DELETE':
+      await deleteMessages();
       res.status(200).json({ ok: true });
       break;
     default:

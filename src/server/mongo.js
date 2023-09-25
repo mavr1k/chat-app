@@ -36,7 +36,11 @@ const getMessages = async () =>
 const addMessage = async (message) =>
   processMongoTask((client, db) => db.collection('messages').insertOne(message));
 
+const deleteMessages = async () =>
+  processMongoTask((client, db) => db.collection('messages').deleteMany({}));
+
 module.exports = {
   getMessages,
   addMessage,
+  deleteMessages,
 };

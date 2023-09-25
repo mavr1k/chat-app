@@ -58,9 +58,12 @@ const ChatApp = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`m-1 p-2 rounded mw-75 ${message.user === user ? "bg-primary text-light align-self-end" : "bg-light text-dark align-self-start"}`}
+                style={{ minWidth: "80px" }}
+                className={`m-1 p-2 rounded ${message.user === user ? "bg-primary text-light align-self-end" : "bg-light text-dark align-self-start"}`}
               >
-                {message.text}
+                <div>{message.text}</div>
+                <div className={`text-${message.user === user ? "end" : "start"}`}>
+                  <small className="fst-italic">{message.user}</small></div>
               </div>
             ))}
             <div ref={bottomRef} />
