@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Head from 'next/head';
 import useLocalStorage from "../../hooks/useLocalStorage";
+import WebSocket from 'ws';
 
 import styles from "./App.module.css";
 
@@ -9,6 +10,7 @@ const ChatApp = () => {
   const [user, setUser] = useLocalStorage('user', '');
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef(null);
+  let ws;
 
   const getMessages = async () => {
     const response = await fetch("/api/messages");
@@ -21,7 +23,15 @@ const ChatApp = () => {
   useEffect(() => {
     getMessages();
     const interval = setInterval(getMessages, 1000);
-    return () => clearInterval(interval);
+    ws = new WebSocket('ws://localhost:8080');
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      setMessages(prevMessages => [...prevMessages, message]);
+    };
+    return () => {
+      clearInterval(interval);
+      ws.close();
+    };
   }, []);
 
   useEffect(() => {
