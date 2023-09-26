@@ -1,28 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import Head from 'next/head';
+import useSWR from 'swr'
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 import styles from "./App.module.css";
 
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 const ChatApp = () => {
+  const { data, isLoading, error } = useSWR('/api/messages', fetcher, { refreshInterval: 1000 })
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useLocalStorage('user', '');
   const [newMessage, setNewMessage] = useState("");
   const bottomRef = useRef(null);
-
-  const getMessages = async () => {
-    const response = await fetch("/api/messages");
-    const newMessages = await response.json();
-    if (newMessages.length !== messages.length) {
-      setMessages(newMessages.map((message) => ({ user: message.from, text: message.message })));
-    }
-  }
-
+  
   useEffect(() => {
-    getMessages();
-    const interval = setInterval(getMessages, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    if (data) {
+      setMessages(data.map((message) => ({ user: message.from, text: message.message })));
+    }
+  }, [data]);
 
   useEffect(() => {
     if (!user) {
