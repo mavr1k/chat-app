@@ -50,7 +50,7 @@ const ChatApp = () => {
         <title>chat.app</title>
       </Head>
       <div className="d-flex flex-column justify-content-between overflow-hidden">
-        <div className="d-flex">
+        <div className={`d-flex fixed-top ${styles.vaporwave}`}>
           <div className={`d-flex flex-column flex-grow-1 p-2 ${styles.messages}`}>
             {messages.map((message, index) => (
               <div
@@ -66,7 +66,7 @@ const ChatApp = () => {
             <div ref={bottomRef} />
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="message-input d-flex align-items-center p-3 bg-light position-fixed bottom-0 end-0 w-100">
+        <form onSubmit={handleSubmit} className="message-input d-flex align-items-center p-3 bg-dark fixed-bottom w-100">
           <input
             className="flex-grow-1 me-2 rounded p-2 border-0"
             type="text"
