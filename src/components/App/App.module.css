@@ -1,5 +1,6 @@
 .messages {
   padding-bottom: 74px !important;
   overflow-y: auto;
-  background: url(./background.jpg);
+  background: no-repeat fixed url(./background.jpg) center;
+  background-size: cover;
 }
