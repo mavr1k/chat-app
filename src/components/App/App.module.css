@@ -1,4 +1,12 @@
 .messages {
   padding-bottom: 74px !important;
   overflow-y: auto;
+  height: calc(100vh - 74px);
+}
+
+.vaporwave {
+  background-image: url(./background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
 }
