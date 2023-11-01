@@ -1,4 +1,5 @@
 .messages {
   padding-bottom: 74px !important;
   overflow-y: auto;
+  background: url(./background.jpg);
 }
